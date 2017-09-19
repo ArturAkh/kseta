@@ -16,5 +16,11 @@ int main(){
   std::thread increment(incrementCounter,&counter,100000);
   increment.join();
   std::cout << counter << std::endl;
+  std::cout << "Test lambda" << std::endl;
+  int counter2(0);
+  const unsigned int times = 200000;
+  std::thread increment2([&counter2,times](){for (unsigned int i=0; i<times;++i){++counter2;}});
+  increment2.join();
+  std::cout << counter2 << std::endl;
   return 0;
 }

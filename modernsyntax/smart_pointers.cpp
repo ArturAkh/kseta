@@ -30,21 +30,18 @@ private:
 
 class IntegerStore2 {
 public:
-   int* i;
+   std::shared_ptr<int> i;
 
-   IntegerStore2():i(new int(0)) { }
+   IntegerStore2():i(std::make_shared<int>(0)) { }
 
    ~IntegerStore2() {
-      if(i) {
-         delete i;
-      }
    }
 
-   void set(int* newValue) {
+   void set(std::shared_ptr<int> newValue) {
       i = newValue;
    }
 
-   int* get() {return i;}
+   std::shared_ptr<int> get() {return i;}
 
 private:
     // we need to explicitly disable value-copying, as it's not safe!
@@ -67,15 +64,15 @@ void useCaseTwo() {
   std::cout << "*** useCaseTwo *** " << std::endl;
   // This use case will crash
   auto store = new IntegerStore2();
-  auto anInteger = int(3);
+  auto anInteger = std::make_shared<int>(3);
   std::cout << "IntegerStore contains " << *(store->get()) << std::endl;
-  store->set( &anInteger);
+  store->set( anInteger);
   // let's change the value
-  anInteger = 5;
+  *anInteger = 5;
   // does the IntegerStore see the changed value?
   std::cout << "IntegerStore contains " << *(store->get()) << std::endl;
   delete store;
-  std::cout << "The integer is " << anInteger << std::endl;
+  std::cout << "The integer is " << *anInteger << std::endl;
 }
 
 

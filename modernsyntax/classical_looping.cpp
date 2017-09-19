@@ -28,10 +28,18 @@ void indexLoop(std::vector<Tool>& tools){
 }
 
 void iteratorLoop(std::vector<Tool>& tools){
-  for(std::vector<Tool>::const_iterator tool = tools.begin(), end = tools.end(); tool != end; ++tool){
+  for(auto  tool = tools.begin(), end = tools.end(); tool != end; ++tool){
     tool->print();
   }
 }
+
+
+void rangeBasedLoop(std::vector<Tool>& tools){
+  for(auto& tool : tools){
+    tool.print();
+  }
+}
+
 
 int main(){
   // create a vector of 5 Tools
@@ -42,6 +50,8 @@ int main(){
   indexLoop(tools);
   std::cout << "Start iterator looping" << std::endl;
   iteratorLoop(tools);
+  std::cout << "Start range based looping" << std::endl;
+  rangeBasedLoop(tools);
 
   return 0;
 }
